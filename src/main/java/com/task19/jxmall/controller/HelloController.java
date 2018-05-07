@@ -12,7 +12,6 @@ public class HelloController {
 
   @RequestMapping(value = "/hello", method = RequestMethod.GET)
   public ResponseEntity<String> string() {
-
     return new ResponseEntity<>("hello", HttpStatus.OK);
   }
 
