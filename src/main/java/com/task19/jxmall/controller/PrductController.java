@@ -47,12 +47,19 @@ public class PrductController {
   }
 
   @GetMapping(value = "")
-  public ResponseEntity<?> getProducts(@RequestParam(name = "name", required = false) String name) {
+  public ResponseEntity<?> getProducts(@RequestParam(name = "name", required = false) String name,@RequestParam(name = "description", required = false) String description) {
+    if(name!=null&&description!=null){
+      List<Product> productList = productRepository.findByDescriptionContainingAndName(description,name);
+      return productList != null ? new ResponseEntity<Object>(productList, HttpStatus.OK)
+          : new ResponseEntity<Object>("没找到！", HttpStatus.NOT_FOUND);
+    }
+
     if (name != null) {
       List<Product> productList = productRepository.findByName(name);
       return productList != null ? new ResponseEntity<Object>(productList, HttpStatus.OK)
           : new ResponseEntity<Object>("没找到！", HttpStatus.NOT_FOUND);
     }
+
     return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
   }
 
