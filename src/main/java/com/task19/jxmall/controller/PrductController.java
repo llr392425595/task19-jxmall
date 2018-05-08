@@ -4,7 +4,6 @@ import com.task19.jxmall.entity.Inventory;
 import com.task19.jxmall.entity.Product;
 import com.task19.jxmall.respository.ProductRepository;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +47,12 @@ public class PrductController {
   }
 
   @GetMapping(value = "")
-  public ResponseEntity<List<Product>> getProducts() {
+  public ResponseEntity<?> getProducts(@RequestParam(name = "name", required = false) String name) {
+    if (name != null) {
+      List<Product> productList = productRepository.findByName(name);
+      return productList != null ? new ResponseEntity<Object>(productList, HttpStatus.OK)
+          : new ResponseEntity<Object>("没找到！", HttpStatus.NOT_FOUND);
+    }
     return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
   }
 
@@ -58,6 +62,5 @@ public class PrductController {
     return product != null ? new ResponseEntity<Object>(product, HttpStatus.OK)
         : new ResponseEntity<Object>("没找到！", HttpStatus.NOT_FOUND);
   }
-
 
 }
