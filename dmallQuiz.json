@@ -5,13 +5,13 @@
     {
       "enabled": true,
       "key": "IP",
-      "value": "220.249.123.170",
+      "value": "7ccc9f46.ngrok.io",
       "type": "text"
     },
     {
       "enabled": true,
       "key": "port",
-      "value": "8083",
+      "value": "80",
       "type": "text"
     }
   ],
