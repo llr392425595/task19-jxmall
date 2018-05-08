@@ -1,0 +1,29 @@
+version: '3'
+services:
+  jenkins-ci:
+    image: jenkins
+    container_name: ci
+    ports:
+      - "9999:8080"
+    networks:
+      main:
+        aliases:
+          - jenkins-ci
+  mysql:
+    image: mysql:5.7
+    container_name: jxmall_db
+    ports:
+      - 3306:3306
+    environment:
+      - LANG=C.UTF-8
+      - TERM=dumb
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=jxmall_db
+      - MYSQL_PASSWORD=1996
+      - MYSQL_USER=llr
+    networks:
+      main:
+        aliases:
+          - mysql
+networks:
+  main:
